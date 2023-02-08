@@ -1,0 +1,11 @@
+
+# activate virtual env
+# win:
+venv\Scripts\activate
+
+# mac / linux:
+source venv/bin/activate
+source venv/bin/deactivate
+
+# install module /package
+python3 -m pip install (something without perenthesis)
