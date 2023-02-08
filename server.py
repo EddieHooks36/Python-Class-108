@@ -8,7 +8,7 @@ app = Flask(__name__) # similar to new task in JS/create a new instance
 
 @app.get("/")
 def home():
-    return "Hi my name is"
+    return "Hi my name is..."
 
 
 @app.get("/about")
