@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, abort
 from data import me, mock_catelog
 
 import json
@@ -38,8 +38,56 @@ def address():
     return f'{address["street"]} #{address["number"]}, {address["city"]}, {address["zip"]}'
 
 
-@app.get("/api/catleog")
+@app.get("/api/catelog")
 def the_catelog():
     return json.dumps(mock_catelog)
+
+
+@app.get("/api/catelog/count")
+def product_count():
+    count = len(mock_catelog)
+    return json.dumps(count)
+
+
+@app.get("/api/category/<cat>")
+def prods_by_category(cat):
+    results = []
+    for prod in mock_catelog:
+        if prod["category"] == cat:
+            results.append(prod)
+
+
+    return json.dumps(results)
+
+
+@app.get("/api/product/<id>")
+def prod_by_id(id):
+    for prod in mock_catelog:
+        if prod["_id"] == id:
+          return json.dumps(id)
+
+
+    return abort(404) # Not Found
+
+
+@app.get("/api/product/search/<text>")
+def prod_title(text):
+      results = []
+      for prod in mock_catelog:
+        if text.lower() in prod["title"].lower:
+            results.append(prod)
+
+      return json.dumps(results)
+
+
+@app.get("/api/categories")
+def get_categories():
+    results = []
+    for prod in mock_catelog:
+        cat  = prod["category"]
+        
+
+
+
 
 app.run(debug=True)

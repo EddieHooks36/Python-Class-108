@@ -11,8 +11,8 @@ me = {
     }
 }
 
-mock_catelog = {
-      {
+mock_catelog = [
+    {
         "_id": "1",
         "title": "Baker",
         "price": 64.97,
@@ -67,4 +67,4 @@ mock_catelog = {
         "image": "longboard.jpg",
         "category": "Long Boards"
     }
-}
+]
