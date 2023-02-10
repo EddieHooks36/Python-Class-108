@@ -1,5 +1,5 @@
 from flask import Flask
-from data import me
+from data import me, mock_catelog
 
 import json
 
@@ -36,5 +36,10 @@ def address():
     # return address["street"] + " # " + str(address["number"]) + address["city"] + address["zip"]
     # f string
     return f'{address["street"]} #{address["number"]}, {address["city"]}, {address["zip"]}'
+
+
+@app.get("/api/catleog")
+def the_catelog():
+    return json.dumps(mock_catelog)
 
 app.run(debug=True)
