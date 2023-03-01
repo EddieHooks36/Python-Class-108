@@ -4,10 +4,10 @@ from config import db
 from bson import ObjectId
 
 import json
-
+from flask_cors import CORS
 
 app = Flask(__name__) # similar to new task in JS/create a new instance
-
+CORS(app)
 
 @app.get("/")
 def home():
@@ -50,6 +50,7 @@ def the_catelog():
     results = []
     for prod in cursor:
         fix_id(prod)
+        results.append(prod)
 
     return json.dumps(results)
 
@@ -58,10 +59,9 @@ def the_catelog():
 def save_product():
     data = request.get_json()
     db.product.insert_one(data)
-
-    print("-" * 25)
-    print(data)
     fix_id(data)
+    # print("-" * 25)
+    # print(data)
 
     return json.dumps(data)
 
@@ -99,6 +99,7 @@ def prod_title(text):
       cursor = db.product.find({"title" : {"$regex" : text, "$options" : "i"}})
       results = []
       for prod in cursor:
+          fix_id(prod)
           results.append(prod)
     #   for prod in mock_catelog:
     #     if text.lower() in prod["title"].lower:
